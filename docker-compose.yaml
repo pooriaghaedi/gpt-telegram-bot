@@ -1,0 +1,16 @@
+version: "3.8"
+
+services:
+  gpt-bot:
+    container_name: gpt-bot
+    image: pooriaghaedi/tgbot:latest
+    restart: always
+    environment:
+      - TELEGRAM_API_KEY=
+      - OPENAI_API_KEY=
+      - PASSWD=
+      - BOTADMIN=
+    volumes:
+      - user-data:/app/data
+volumes:
+  user-data:
