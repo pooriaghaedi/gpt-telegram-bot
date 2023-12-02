@@ -47,7 +47,7 @@ func createNewPrompt(db *sql.DB, promptStr string) error {
 }
 
 func updateUserPrompt(db *sql.DB, userID, promptID int) error {
-	statement, err := db.Prepare("UPDATE users SET prompt_id = ? WHERE id = ?")
+	statement, err := db.Prepare("UPDATE users SET prompt_id = ? WHERE tg_id = ?")
 	fmt.Println("userID: ", userID, "promptID: ", promptID)
 	if err != nil {
 		return fmt.Errorf("error preparing update users: %v", err)
