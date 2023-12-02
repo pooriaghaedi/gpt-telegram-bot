@@ -8,7 +8,6 @@ import (
 )
 
 func getPromptID(db *sql.DB, promptName string) (int, error) {
-	fmt.Println(promptName)
 	var promptID int
 	err := db.QueryRow("SELECT id FROM prompts WHERE name = ?", promptName).Scan(&promptID)
 	if err != nil {
@@ -49,6 +48,7 @@ func createNewPrompt(db *sql.DB, promptStr string) error {
 
 func updateUserPrompt(db *sql.DB, userID, promptID int) error {
 	statement, err := db.Prepare("UPDATE users SET prompt_id = ? WHERE id = ?")
+	fmt.Println("userID: ", userID, "promptID: ", promptID)
 	if err != nil {
 		return fmt.Errorf("error preparing update users: %v", err)
 	}
@@ -58,7 +58,6 @@ func updateUserPrompt(db *sql.DB, userID, promptID int) error {
 	if err != nil {
 		return fmt.Errorf("error executing update users: %v", err)
 	}
-
 	return nil
 }
 
