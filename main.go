@@ -124,7 +124,6 @@ func main() {
 					err := createNewPrompt(db, update.Message.Text)
 					if err != nil {
 						msg = tgbotapi.NewMessage(update.Message.Chat.ID, "Error creating prompt: "+err.Error())
-
 					} else {
 						msg = tgbotapi.NewMessage(update.Message.Chat.ID, "New prompt created successfully.")
 
@@ -136,9 +135,13 @@ func main() {
 
 					fmt.Println(promptID)
 					if err == nil && promptID != 0 {
-						updateUserPrompt(db, int(update.Message.From.ID), promptID)
-						msg = tgbotapi.NewMessage(update.Message.Chat.ID, "your default prompt is changed.")
-						// break
+						err := updateUserPrompt(db, int(update.Message.From.ID), promptID)
+						if err != nil {
+							msg = tgbotapi.NewMessage(update.Message.Chat.ID, "Error setting prompt: "+err.Error())
+						} else {
+							msg = tgbotapi.NewMessage(update.Message.Chat.ID, "your default prompt is changed.")
+							// break
+						}
 					} else {
 						if strings.Contains(message, "```") {
 							msg = tgbotapi.NewMessage(update.Message.Chat.ID, escapeMarkdownV2(message))

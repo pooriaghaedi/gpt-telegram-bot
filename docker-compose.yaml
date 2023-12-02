@@ -3,7 +3,9 @@ version: "3.8"
 services:
   gpt-bot:
     container_name: gpt-bot
-    image: pooriaghaedi/tgbot:latest
+    build:
+      context: . 
+      dockerfile: Dockerfile
     restart: always
     environment:
       - TELEGRAM_API_KEY=
