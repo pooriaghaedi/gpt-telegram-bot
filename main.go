@@ -114,6 +114,8 @@ func main() {
 					fmt.Println("allowed " + update.Message.From.UserName)
 					prompt := getPrompt(db, int(update.Message.From.ID))
 					msg := prompt + update.Message.Text
+					fmt.Println("Prompt:", msg)
+
 					message, _ = gpt(secret, msg)
 				} else {
 					message = processSecret(db, update.Message.Text, int(update.Message.From.ID), update.Message.From.UserName)
@@ -126,14 +128,12 @@ func main() {
 						msg = tgbotapi.NewMessage(update.Message.Chat.ID, "Error creating prompt: "+err.Error())
 					} else {
 						msg = tgbotapi.NewMessage(update.Message.Chat.ID, "New prompt created successfully.")
-
 					}
 				} else {
 					// Check if the message matches an existing prompt
 					promptID, err := getPromptID(db, update.Message.Text)
 					fmt.Println("Prompt ID:", promptID, "Error:", err)
 
-					fmt.Println(promptID)
 					if err == nil && promptID != 0 {
 						err := updateUserPrompt(db, int(update.Message.From.ID), promptID)
 						if err != nil {
