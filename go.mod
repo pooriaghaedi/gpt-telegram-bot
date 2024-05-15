@@ -5,8 +5,8 @@ go 1.21
 require (
 	github.com/go-telegram-bot-api/telegram-bot-api/v5 v5.5.1
 	github.com/gorilla/mux v1.8.0
-	github.com/mattn/go-sqlite3 v1.14.18
-	github.com/sashabaranov/go-openai v1.17.6
+	github.com/mattn/go-sqlite3 v1.14.22
+	github.com/sashabaranov/go-openai v1.24.0
 	github.com/urfave/cli/v2 v2.25.0
 	gorm.io/gorm v1.24.7-0.20230306060331-85eaf9eeda11
 )
